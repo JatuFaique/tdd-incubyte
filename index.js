@@ -9,6 +9,7 @@ export function add(parameter) {
         let numbers = getNumbersFromString(numberString, delimiter);
         return numbers.reduce((acc, num) => acc + num, 0);
     }
+    return 0;
 }
 
 /**
@@ -31,7 +32,7 @@ function extractDelimiterAndNumbersString(str) {
     if (str.startsWith('//')) {
         const parts = str.split('\n');
         delimiter = parts[0].substring(2);
-        str = parts.slice(1).join('\n'); // Join the rest of the string
+        str = parts.slice(1).join('\n');
     }
     return {
         delimiter,
