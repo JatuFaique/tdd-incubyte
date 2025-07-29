@@ -1,4 +1,4 @@
-export function sum(parameter) {
+export function add(parameter) {
     // If the parameter is an empty string, return 0
     if (parameter === "") {
         return 0;
