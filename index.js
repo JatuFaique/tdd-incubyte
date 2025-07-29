@@ -3,9 +3,11 @@ export function add(parameter) {
     if (parameter === "") {
         return 0;
     }
-    // Check if the parameter is a string and split it by commas then parse as int
     if (typeof parameter === 'string') {
-        return getNumbersFromString(parameter).reduce((acc, num) => acc + num, 0);
+        // Handle custom delimiters
+        const { delimiter, numberString } = extractDelimiterAndNumbersString(parameter);
+        let numbers = getNumbersFromString(numberString, delimiter);
+        return numbers.reduce((acc, num) => acc + num, 0);
     }
 }
 
@@ -14,6 +16,25 @@ export function add(parameter) {
  * @param {string} str - The input string containing numbers.
  * @returns {number[]} - An array of integers parsed from the input string.
  */
-function getNumbersFromString(str) {
-    return str.split(/[\n,]+/).map(num => parseInt(num, 10)).filter(num => !isNaN(num));
+function getNumbersFromString(str,delimiter = ',') {
+    return str.split(new RegExp(`[${delimiter}\n,]+`)).map(num => parseInt(num, 10)).filter(num => !isNaN(num));
+}
+
+/**
+ * Extracts the custom delimiter and the numbers string from the input.
+ * If the input starts with "//", it treats the next line as a custom delimiter.
+ * @param {string} str - The input string potentially containing a custom delimiter.
+ * @returns {Object} - An object containing the delimiter and the numbers string.
+ */
+function extractDelimiterAndNumbersString(str) {
+    let delimiter = ',';
+    if (str.startsWith('//')) {
+        const parts = str.split('\n');
+        delimiter = parts[0].substring(2);
+        str = parts.slice(1).join('\n'); // Join the rest of the string
+    }
+    return {
+        delimiter,
+        numberString: str
+    };
 }
