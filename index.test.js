@@ -26,3 +26,12 @@ test('Test allow multiple \n without numbers', ()=>{
     expect(add("1,\n\n,4,5,\n")).toBe(10);
 });
 
+test('Test to support different delimiters', () => {
+    expect(add("//;\n1;2")).toBe(3);
+});
+
+test('Test to support different delimiters with multiple numbers', () => {
+    expect(add("//$\n1,2\n3$4")).toBe(10);
+});
+
+
