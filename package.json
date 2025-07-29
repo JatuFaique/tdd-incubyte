@@ -1,0 +1,26 @@
+{
+  "name": "tdd-incubyte",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/JatuFaique/tdd-incubyte#readme",
+  "bugs": {
+    "url": "https://github.com/JatuFaique/tdd-incubyte/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JatuFaique/tdd-incubyte.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "babel-jest": "^30.0.5",
+    "jest": "^30.0.5"
+  }
+}
