@@ -10,6 +10,6 @@ test('adds "1,2,3" to equal 6', () => {
 });
 
 // test Input: “”, Output: 0
-test('adds "" to equal 0', () => {
+test('Test empty string input', () => {
   expect(sum("")).toBe(0);
 });
