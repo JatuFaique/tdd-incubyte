@@ -34,4 +34,12 @@ test('Test to support different delimiters with multiple numbers', () => {
     expect(add("//$\n1,2\n3$4")).toBe(10);
 });
 
+test('Test negative numbers should throw an error', () => {
+    expect(() => add("1,-2,3")).toThrow("negative numbers not allowed -2");
+});
+
+test('Test negative numbers should throw an error with multiple negatives', () => {
+    expect(() => add("1,-2,3,-4")).toThrow("negative numbers not allowed -2,-4");
+});
+
 
