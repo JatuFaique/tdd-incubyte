@@ -4,9 +4,6 @@ export function add(parameter) {
         return 0;
     }
     if (typeof parameter === 'string') {
-        // Handle custom delimiters
-        // support for custom delimiters return []
-
         const { delimiters, numberString } = extractDelimiterAndNumbersString(parameter);
         let numbers = getNumbersFromString(numberString, delimiters[0]);
         // Check for negative numbers
@@ -39,7 +36,6 @@ function getNumbersFromString(str,delimiter = ',') {
  */
 function extractDelimiterAndNumbersString(str) {
     let delimiters = [','];
-    // delimiter with longer than one character
     if (str.startsWith('//')) {
         const parts = str.split('\n');
         delimiterSection = parts[0].substring(2);
