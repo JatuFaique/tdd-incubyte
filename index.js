@@ -7,6 +7,11 @@ export function add(parameter) {
         // Handle custom delimiters
         const { delimiter, numberString } = extractDelimiterAndNumbersString(parameter);
         let numbers = getNumbersFromString(numberString, delimiter);
+        // Check for negative numbers
+        const negatives = numbers.filter(num => num < 0);
+        if (negatives.length > 0) {
+            throw new Error(`negative numbers not allowed ${negatives.join(',')}`);
+        }
         return numbers.reduce((acc, num) => acc + num, 0);
     }
     return 0;
