@@ -46,3 +46,7 @@ test('Test numbers greater than 1000 should be ignored', () => {
     expect(add("1,2,1001")).toBe(3);
 });
 
+test('Test delimiter with delimiter longer than one character', () => {
+    expect(add("//[***]\n1***2***3")).toBe(6);
+});
+
