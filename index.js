@@ -5,13 +5,18 @@ export function add(parameter) {
     }
     if (typeof parameter === 'string') {
         // Handle custom delimiters
-        const { delimiter, numberString } = extractDelimiterAndNumbersString(parameter);
-        let numbers = getNumbersFromString(numberString, delimiter);
+        // support for custom delimiters return []
+
+        const { delimiters, numberString } = extractDelimiterAndNumbersString(parameter);
+        let numbers = getNumbersFromString(numberString, delimiters[0]);
         // Check for negative numbers
         const negatives = numbers.filter(num => num < 0);
         if (negatives.length > 0) {
             throw new Error(`negative numbers not allowed ${negatives.join(',')}`);
         }
+        // Ignore numbers greater than 1000
+        numbers = numbers.filter(num => num <= 1000);
+
         return numbers.reduce((acc, num) => acc + num, 0);
     }
     return 0;
@@ -33,14 +38,22 @@ function getNumbersFromString(str,delimiter = ',') {
  * @returns {Object} - An object containing the delimiter and the numbers string.
  */
 function extractDelimiterAndNumbersString(str) {
-    let delimiter = ',';
+    let delimiters = [','];
+    // delimiter with longer than one character
     if (str.startsWith('//')) {
         const parts = str.split('\n');
-        delimiter = parts[0].substring(2);
-        str = parts.slice(1).join('\n');
+        delimiterSection = parts[0].substring(2);
+        // Match all delimiters enclosed in square brackets
+        const matches = delimiterSection.match(/\[(.*?)\]/g);
+
+        if (matches) {
+            delimiters = matches.map(m => m.slice(1, -1)); 
+        } else {
+            delimiters = [delimiterSection];
+        }
     }
     return {
-        delimiter,
+        delimiters,
         numberString: str
     };
 }
